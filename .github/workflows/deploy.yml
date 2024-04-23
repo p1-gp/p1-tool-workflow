@@ -12,7 +12,6 @@ jobs:
     
     env:
       LOGIN: ${{ secrets.DOCKER_LOGIN }}
-      NAME: ${{ github.event.repository.name }}
     
     steps:
       - name: Test remote
@@ -20,4 +19,4 @@ jobs:
         with:
           host: ${{ secrets.DEPLOYMENT_SERVER }}
           access_token: ${{ secrets.DEPLOYMENT_TOKEN }}
-          repository: $NAME
+          repository: ${{ secrets.DEPLOYMENT_TOKEN }}
