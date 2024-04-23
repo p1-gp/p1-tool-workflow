@@ -10,6 +10,7 @@ using IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureLogging(v => v.AddSimpleConsole(v => 
     {
         v.TimestampFormat = "[HH:mm:ss] ";
+        v.IncludeScopes = false;
         v.SingleLine = true;
     }))
     .ConfigureServices(v => v
