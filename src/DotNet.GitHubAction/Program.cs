@@ -7,6 +7,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using IHost host = Host.CreateDefaultBuilder(args)
+    .ConfigureLogging(v => v.AddSimpleConsole(v => 
+    {
+        v.TimestampFormat = "[HH:mm:ss] ";
+        v.SingleLine = true;
+    }))
     .ConfigureServices(v => v
         .AddSingleton<IAutoUpdater, AutoUpdater>()
         .AddSingleton<RemoteExecutor>())
