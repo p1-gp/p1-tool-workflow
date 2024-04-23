@@ -4,15 +4,14 @@ using DotNet.GitHubAction.Interfaces;
 using DotNet.GitHubAction.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Serilog;
+
+Log.Logger = new LoggerConfiguration()
+        .WriteTo.Console()
+        .CreateLogger();
 
 using IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureLogging(v => v.AddSimpleConsole(v => 
-    {
-        v.TimestampFormat = "[HH:mm:ss] ";
-        v.IncludeScopes = false;
-        v.SingleLine = true;
-    }))
+    .ConfigureLogging(v => v.AddSerilog())
     .ConfigureServices(v => v
         .AddSingleton<IAutoUpdater, AutoUpdater>()
         .AddSingleton<RemoteExecutor>())
@@ -36,11 +35,7 @@ var parser = Parser.Default.ParseArguments<ActionInputs>(() => new(), args);
 parser.WithNotParsed(
     errors =>
     {
-        Get<ILoggerFactory>(host)
-            .CreateLogger("DotNet.GitHubAction.Program")
-            .LogError(
-                string.Join(Environment.NewLine, errors.Select(error => error.ToString())));
-
+        Log.Logger.Error(string.Join(Environment.NewLine, errors.Select(error => error.ToString())));
         Environment.Exit(2);
     });
 

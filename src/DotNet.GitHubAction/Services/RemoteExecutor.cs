@@ -1,13 +1,13 @@
 ﻿using DotNet.GitHubAction.Extensions;
 using DotNet.GitHubAction.Interfaces;
 using DotNet.GitHubAction.Models;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace DotNet.GitHubAction.Services;
 
 public class RemoteExecutor(
     IAutoUpdater autoUpdater,
-    ILogger<RemoteExecutor> logger)
+    ILogger logger)
 {
     public async Task<int> ExecuteAsync(string host, string repository, string accessToken, CancellationToken cancellationToken)
     {
