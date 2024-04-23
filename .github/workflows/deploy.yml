@@ -19,4 +19,4 @@ jobs:
         with:
           host: ${{ secrets.DEPLOYMENT_SERVER }}
           access_token: ${{ secrets.DEPLOYMENT_TOKEN }}
-          repository: ${{ secrets.DEPLOYMENT_TOKEN }}
+          repository: ${{ github.event.repository.name }}
