@@ -13,6 +13,7 @@ Log.Logger = new LoggerConfiguration()
 using IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureLogging(v => v.AddSerilog())
     .ConfigureServices(v => v
+        .AddSingleton(Log.Logger)
         .AddSingleton<IAutoUpdater, AutoUpdater>()
         .AddSingleton<RemoteExecutor>())
     .Build();
