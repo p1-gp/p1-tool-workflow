@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using DotNet.GitHubAction;
+using DotNet.GitHubAction.Interfaces;
 using DotNet.GitHubAction.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -7,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 using IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(v => v
-        .AddSingleton<AutoUpdater>()
+        .AddSingleton<IAutoUpdater, AutoUpdater>()
         .AddSingleton<RemoteExecutor>())
     .Build();
 
