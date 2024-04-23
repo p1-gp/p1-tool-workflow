@@ -1,0 +1,25 @@
+name: 'Execute remote workflow API'
+description: 'A Github action that executor remote API host with show result logs'
+branding:
+  icon: log-out
+  color: green
+inputs:
+  host:
+    description: 'The host of remote executor API'
+    required: true
+  repository:
+    description: 'The repository name. Example, "samples".'
+    required: true
+  access_token:
+    description: 'AccessToken for remote executor API'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+  - '-h'
+  - ${{ inputs.host }}
+  - '-r'
+  - ${{ inputs.repository }}
+  - '-a'
+  - ${{ inputs.access_token }}
