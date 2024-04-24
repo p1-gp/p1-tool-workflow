@@ -28,7 +28,7 @@ static async Task StartExecuteAsync(ActionInputs inputs, IHost host)
     using CancellationTokenSource tokenSource = new();
     Console.CancelKeyPress += (s,e) => tokenSource.Cancel();
 
-    int resultCode = await executor.ExecuteAsync(inputs.Host, inputs.Repository, inputs.AccessToken, tokenSource.Token);
+    int resultCode = await executor.ExecuteAsync(inputs.Host, inputs.Repository, inputs.Branch, inputs.AccessToken, tokenSource.Token);
     Environment.Exit(resultCode);
 }
 

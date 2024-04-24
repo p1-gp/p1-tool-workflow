@@ -14,6 +14,11 @@ public class ActionInputs
         HelpText = "The repository name")]
     public string Repository { get; set; } = null!;
 
+    [Option('b', "branch",
+        Required = true,
+        HelpText = "The branch name")]
+    public string Branch { get; set; } = null!;
+
     [Option('a', "access_token",
         Required = true,
         HelpText = "AccessToken for remote executor API")]

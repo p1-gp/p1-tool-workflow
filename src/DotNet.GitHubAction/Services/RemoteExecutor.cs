@@ -9,10 +9,10 @@ public class RemoteExecutor(
     IAutoUpdater autoUpdater,
     ILogger logger)
 {
-    public async Task<int> ExecuteAsync(string host, string repository, string accessToken, CancellationToken cancellationToken)
+    public async Task<int> ExecuteAsync(string host, string repository, string branch, string accessToken, CancellationToken cancellationToken)
     {
-        logger.Information($"Execute {host} in repository {repository} logs");
-        IndexSuccess indexData = await autoUpdater.RunRepositoryAsync(host, repository, accessToken, cancellationToken).OrThrow();
+        logger.Information($"Execute {host} in repository {repository}.{branch} logs");
+        IndexSuccess indexData = await autoUpdater.RunRepositoryAsync(host, repository, branch, accessToken, cancellationToken).OrThrow();
         string index = indexData.Index;
         while (true)
         {

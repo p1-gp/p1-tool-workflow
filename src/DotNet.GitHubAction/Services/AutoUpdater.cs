@@ -7,11 +7,11 @@ namespace DotNet.GitHubAction.Services;
 
 public class AutoUpdater : IAutoUpdater
 {
-    public async Task<OptionalSuccess<IndexSuccess>> RunRepositoryAsync(string host, string repository, string accessToken, CancellationToken cancellationToken)
+    public async Task<OptionalSuccess<IndexSuccess>> RunRepositoryAsync(string host, string repository, string branch, string accessToken, CancellationToken cancellationToken)
     {
         using HttpClient client = new HttpClient();
         client.DefaultRequestHeaders.Add("Authorization", accessToken);
-        HttpResponseMessage response = await client.PostAsync($"{host}/{repository}", null, cancellationToken);
+        HttpResponseMessage response = await client.PostAsync($"{host}/{repository}/{branch}", null, cancellationToken);
         string rawJson = await response.Content.ReadAsStringAsync(cancellationToken);
         JsonObject json = JsonNode.Parse(rawJson)!.AsObject();
         return json["status"]!.GetValue<string>() switch

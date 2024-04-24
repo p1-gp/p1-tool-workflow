@@ -8,7 +8,10 @@ inputs:
     description: 'The host of remote executor API'
     required: true
   repository:
-    description: 'The repository name. Example, "samples".'
+    description: 'The repository name'
+    required: true
+  branch:
+    description: 'The branch name'
     required: true
   access_token:
     description: 'AccessToken for remote executor API'
@@ -21,5 +24,7 @@ runs:
   - ${{ inputs.host }}
   - '-r'
   - ${{ inputs.repository }}
+  - '-b'
+  - ${{ inputs.branch }}
   - '-a'
   - ${{ inputs.access_token }}
