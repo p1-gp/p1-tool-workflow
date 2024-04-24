@@ -8,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
-        .WriteTo.Console()
+        .WriteTo.Console(outputTemplate: "{Message:lj}{NewLine}{Exception}")
         .CreateLogger();
 
 using IHost host = Host.CreateDefaultBuilder(args)
