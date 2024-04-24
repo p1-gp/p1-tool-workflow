@@ -20,4 +20,4 @@ jobs:
           host: ${{ secrets.DEPLOYMENT_SERVER }}
           access_token: ${{ secrets.DEPLOYMENT_TOKEN }}
           repository: ${{ github.event.repository.name }}
-          branch: ${GITHUB_REF_NAME}
+          branch: ${GITHUB_REF:11}

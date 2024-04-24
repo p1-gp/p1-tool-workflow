@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using DotNet.GitHubAction;
+using DotNet.GitHubAction.Extensions;
 using DotNet.GitHubAction.Interfaces;
 using DotNet.GitHubAction.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +33,7 @@ static async Task StartExecuteAsync(ActionInputs inputs, IHost host)
     Environment.Exit(resultCode);
 }
 
-var parser = Parser.Default.ParseArguments<ActionInputs>(() => new(), args);
+var parser = Parser.Default.ParseArguments<ActionInputs>(() => new(), args.ModifyEnviromentArgs());
 parser.WithNotParsed(
     errors =>
     {
