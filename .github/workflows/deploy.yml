@@ -14,7 +14,7 @@ jobs:
       LOGIN: ${{ secrets.DOCKER_LOGIN }}
     
     steps:
-      - name: Test remote
+      - name: Execute remote
         uses: p1-gp/p1-tool-workflow@master
         with:
           host: ${{ secrets.DEPLOYMENT_SERVER }}
