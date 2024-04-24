@@ -2,7 +2,7 @@
 
 namespace DotNet.GitHubAction.Models;
 
-public abstract class Success : BaseResponse
+public class Success : BaseResponse
 {
     [JsonPropertyName("status")] public override string Status => "success";
 }
