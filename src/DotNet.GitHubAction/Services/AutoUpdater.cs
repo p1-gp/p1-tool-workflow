@@ -1,7 +1,5 @@
 ﻿using DotNet.GitHubAction.Interfaces;
 using DotNet.GitHubAction.Models;
-using System.Buffers.Text;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -15,15 +13,7 @@ public class AutoUpdater : IAutoUpdater
         client.DefaultRequestHeaders.Add("Authorization", accessToken);
         HttpResponseMessage response = await client.PostAsync($"{host}/{repository}/{branch}", null, cancellationToken);
         string rawJson = await response.Content.ReadAsStringAsync(cancellationToken);
-        JsonObject json;
-        try
-        {
-            json = JsonNode.Parse(rawJson)!.AsObject();
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"JSON READ ERROR OF '{Convert.ToBase64String(Encoding.UTF8.GetBytes($"{host}/{repository}/{branch}"))}': {rawJson}", e);
-        }
+        JsonObject json = JsonNode.Parse(rawJson)!.AsObject();
         return json["status"]!.GetValue<string>() switch
         {
             "success" => json.Deserialize<IndexSuccess>()!,
