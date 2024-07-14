@@ -1,5 +1,7 @@
 ﻿using DotNet.GitHubAction.Interfaces;
 using DotNet.GitHubAction.Models;
+using System.Buffers.Text;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -20,7 +22,7 @@ public class AutoUpdater : IAutoUpdater
         }
         catch (Exception e)
         {
-            throw new Exception($"JSON READ ERROR OF '{host}/{repository}/{branch}': {rawJson}", e);
+            throw new Exception($"JSON READ ERROR OF '{Convert.ToBase64String(Encoding.UTF8.GetBytes($"{host}/{repository}/{branch}"))}': {rawJson}", e);
         }
         return json["status"]!.GetValue<string>() switch
         {
