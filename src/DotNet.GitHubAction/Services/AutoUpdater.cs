@@ -20,7 +20,7 @@ public class AutoUpdater : IAutoUpdater
         }
         catch (Exception e)
         {
-            throw new Exception($"JSON READ ERROR: {rawJson}", e);
+            throw new Exception($"JSON READ ERROR OF '{host}/{repository}/{branch}': {rawJson}", e);
         }
         return json["status"]!.GetValue<string>() switch
         {
