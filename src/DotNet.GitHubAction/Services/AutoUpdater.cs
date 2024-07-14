@@ -13,7 +13,15 @@ public class AutoUpdater : IAutoUpdater
         client.DefaultRequestHeaders.Add("Authorization", accessToken);
         HttpResponseMessage response = await client.PostAsync($"{host}/{repository}/{branch}", null, cancellationToken);
         string rawJson = await response.Content.ReadAsStringAsync(cancellationToken);
-        JsonObject json = JsonNode.Parse(rawJson)!.AsObject();
+        JsonObject json;
+        try
+        {
+            json = JsonNode.Parse(rawJson)!.AsObject();
+        }
+        catch (Exception e)
+        {
+            throw new Exception($"JSON READ ERROR: {rawJson}", e);
+        }
         return json["status"]!.GetValue<string>() switch
         {
             "success" => json.Deserialize<IndexSuccess>()!,
